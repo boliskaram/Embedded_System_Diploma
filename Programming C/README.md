@@ -1,2 +1,2 @@
 # Programming C 
-## Assignment
+## Assignments
