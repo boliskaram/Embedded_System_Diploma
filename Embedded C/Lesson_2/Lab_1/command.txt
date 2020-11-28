@@ -1,0 +1,42 @@
+to create file
+$ touch file_name
+
+to obj_file from C_file
+$ arm-none-eabi-gcc.exe -c -mcpu=processor_name input_file(.c) -o output_file(.o)
+$ arm-none-eabi-gcc.exe -mcpu=arm926ej-s App.c -o App.o
+
+to obj_file from C_file with include header_file(.h)
+$ arm-none-eabi-gcc.exe -c -mcpu=processor_name -I .input_file(.c) -o output_file(.o)
+$ arm-none-eabi-gcc.exe -mcpu=arm926ej-s -I . App.c -o App.o
+
+to get sections from obj/elf_file 
+$ arm-none-eabi-objdump.exe -h file_name 
+$ arm-none-eabi-objdump.exe -h App.o
+
+to get obj_file from assembly_file (startup).
+$ arm-none-eabi-as.exe -mcpu=processor_name input_file(.s) -o output_file(.o)
+$ arm-none-eabi-as.exe -mcpu=arm926ej-s startup.s -o startup.o 
+
+to get assembly_file from obj_file
+$ arm-none-eabi-objdump.exe -D input_file(.o) >> output_file(.s)
+$ arm-none-eabi-objdump.exe -D App.o >> App.s
+
+to get symbols from obj_file
+$ arm-none-eabi-nm.exe input_file
+$ arm-none-eabi-nm.exe App.o
+
+to get elf_file (linker) all obj_file
+$ arm-none-eabi-ld.exe -T Linker_file(.ld) obj_files(.o) -o output_file(.elf)
+$ arm-none-eabi-ld.exe -T Linker_Script.ld App.o Uart.o startup.o -o App.elf
+
+to get elf_file (linker) all obj_file with map_file
+$ arm-none-eabi-ld.exe -T Linker_file(.ld) -Map=name.map obj_files(.o) -o output_file(.elf)
+$ arm-none-eabi-ld.exe -T Linker_Script.ld -Map=details.map App.o Uart.o startup.o -o App.elf
+
+to get binary from executable_file(.elf)
+$ arm-none-eabi-objcopy.exe -O binary input_file(.elf) output_file(.bin)
+$ arm-none-eabi-objcopy.exe -O binary App.elf App.bin
+
+to run binary on qemu
+$ qemu-system-arm -M board_name -m memory_size display_option -kernel input_file 
+$ qemu-system-arm -M versatilepb -m 128M -nographic -kernel App.bin
