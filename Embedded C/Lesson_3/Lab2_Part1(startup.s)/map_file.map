@@ -1,0 +1,103 @@
+
+Allocating common symbols
+Common symbol       size              file
+
+bss_var             0x3               App.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+flash            0x08000000         0x00020000         xr
+sram             0x20000000         0x00005000         xrw
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+
+.text           0x08000000       0xd0
+ *(.vectors)
+ .vectors       0x08000000       0x1c startup.o
+ *(.text)
+ .text          0x0800001c       0xa8 App.o
+                0x0800001c                main
+ .text          0x080000c4        0x8 startup.o
+ *(.rodata)
+ .rodata        0x080000cc        0x4 App.o
+                0x080000cc                const_var
+
+.glue_7         0x080000d0        0x0
+ .glue_7        0x00000000        0x0 linker stubs
+
+.glue_7t        0x080000d0        0x0
+ .glue_7t       0x00000000        0x0 linker stubs
+
+.vfp11_veneer   0x080000d0        0x0
+ .vfp11_veneer  0x00000000        0x0 linker stubs
+
+.v4_bx          0x080000d0        0x0
+ .v4_bx         0x00000000        0x0 linker stubs
+
+.iplt           0x080000d0        0x0
+ .iplt          0x00000000        0x0 App.o
+
+.rel.dyn        0x080000d0        0x0
+ .rel.iplt      0x00000000        0x0 App.o
+
+.data           0x080000d0        0x8
+ *(.data)
+ .data          0x080000d0        0x8 App.o
+                0x080000d0                R_ODR
+                0x080000d4                g_var
+ .data          0x080000d8        0x0 startup.o
+
+.igot.plt       0x080000d8        0x0
+ .igot.plt      0x00000000        0x0 App.o
+
+.bss            0x20000000        0x3
+ *(.bss)
+ .bss           0x20000000        0x0 App.o
+ .bss           0x20000000        0x0 startup.o
+ COMMON         0x20000000        0x3 App.o
+                0x20000000                bss_var
+LOAD App.o
+LOAD startup.o
+OUTPUT(App_cortex_m3.elf elf32-littlearm)
+
+.debug_info     0x00000000      0x21d
+ .debug_info    0x00000000      0x19a App.o
+ .debug_info    0x0000019a       0x83 startup.o
+
+.debug_abbrev   0x00000000      0x10d
+ .debug_abbrev  0x00000000       0xf9 App.o
+ .debug_abbrev  0x000000f9       0x14 startup.o
+
+.debug_loc      0x00000000       0x38
+ .debug_loc     0x00000000       0x38 App.o
+
+.debug_aranges  0x00000000       0x40
+ .debug_aranges
+                0x00000000       0x20 App.o
+ .debug_aranges
+                0x00000020       0x20 startup.o
+
+.debug_line     0x00000000       0xd5
+ .debug_line    0x00000000       0x9a App.o
+ .debug_line    0x0000009a       0x3b startup.o
+
+.debug_str      0x00000000      0x10b
+ .debug_str     0x00000000      0x10b App.o
+                                0x148 (size before relaxing)
+
+.comment        0x00000000       0x11
+ .comment       0x00000000       0x11 App.o
+                                 0x12 (size before relaxing)
+
+.ARM.attributes
+                0x00000000       0x31
+ .ARM.attributes
+                0x00000000       0x33 App.o
+ .ARM.attributes
+                0x00000033       0x21 startup.o
+
+.debug_frame    0x00000000       0x2c
+ .debug_frame   0x00000000       0x2c App.o
