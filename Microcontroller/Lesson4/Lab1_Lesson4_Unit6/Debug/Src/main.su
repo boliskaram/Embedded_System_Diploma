@@ -1,0 +1,7 @@
+main.c:50:6:Clock_Init	4	static
+main.c:55:6:GPIO_Init	4	static
+main.c:62:6:AFIO_Init	4	static
+main.c:66:6:EXTI_Init	4	static
+main.c:72:6:NVIC_Init	4	static
+main.c:78:5:main	8	static
+main.c:90:6:EXTI0_IRQHandler	4	static
